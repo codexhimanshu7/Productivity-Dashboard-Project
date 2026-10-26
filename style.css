@@ -38,12 +38,12 @@
 
 html,
 body {
-    height: 100%;
+    min-height: 100%;
     width: 100%;
 }
 
 #main {
-    height: 110%;
+    min-height: 100vh;
     width: 100%;
     background-color: var(--sec);
     font-family: aeonik;
@@ -54,11 +54,9 @@ body {
 
 
 section.allelems {
-    height: 100%;
     width: 100%;
     padding: 40px;
-    overflow: auto;
-    position: absolute;
+    position: relative;
 }
 
 .allelems header {
@@ -117,18 +115,9 @@ header .header2 h3 {
 }
 
 .allelems .allFeatures {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 20px;
 }
 
 .elem {
@@ -136,8 +125,8 @@ header .header2 h3 {
 
     border-radius: 10px;
     font-size: 20px;
-    height: 350px;
-    width: 270px;
+    height: clamp(220px, 30vw, 350px);
+    width: 100%;
     overflow: hidden;
     position: relative;
     -webkit-transition: all ease 0.2s;
@@ -168,14 +157,16 @@ header .header2 h3 {
 }
 
 .fullelem {
-    height: 100%;
+    height: 100vh;
+    height: 100dvh;
     width: 100%;
     background-color: var(--sec);
     padding: 100px 40px 40px;
     display: none;
-    position: absolute;
-    top: 0;
+    position: fixed;
+    inset: 0;
     z-index: 99;
+    overflow-y: auto;
 }
 
 .back {
@@ -203,7 +194,9 @@ header .header2 h3 {
 }
 
 .todo-list-fullpage .todo-container {
-    height: 90%;
+    min-height: 0;
+    height: calc(100vh - 200px);
+    height: calc(100dvh - 200px);
     width: 100%;
     margin-top: 20px;
     display: -webkit-box;
@@ -215,10 +208,13 @@ header .header2 h3 {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    gap: 20px;
 }
 
 .todo-list-fullpage .todo-container .addtask {
-    width: 33%;
+    flex: 1;
+    width: auto;
+    min-width: 0;
     background-color: var(--tri2);
     height: 100%;
     border-radius: 20px;
@@ -226,7 +222,9 @@ header .header2 h3 {
 }
 
 .todo-list-fullpage .todo-container .alltask {
-    width: 65%;
+    flex: 2;
+    width: auto;
+    min-width: 0;
     background-color: var(--tri2);
     height: 100%;
     border-radius: 20px;
@@ -340,6 +338,8 @@ header .header2 h3 {
     -ms-flex-align: start;
     align-items: flex-start;
     gap: 5px;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .task h5 span {
@@ -367,6 +367,7 @@ header .header2 h3 {
     border-radius: 5px;
     border: none;
     font-weight: 600;
+    flex-shrink: 0;
 }
 
 .task button:active {
@@ -406,7 +407,9 @@ header .header2 h3 {
 
 .daily-planner-fullpage .day-planner {
     background-color: var(--tri2);
-    height: 90%;
+    min-height: 0;
+    height: calc(100vh - 200px);
+    height: calc(100dvh - 200px);
     margin-top: 30px;
     width: 100%;
     border-radius: 10px;
@@ -435,6 +438,7 @@ header .header2 h3 {
     align-items: center;
     position: relative;
     width: 49%;
+    min-width: 0;
     margin-bottom: 10px;
 
 }
@@ -596,6 +600,7 @@ header .header2 h3 {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     text-align: center;
+    width: min(100% - 32px, 700px);
 }
 
 .pomo-timer {
@@ -768,4 +773,268 @@ li {
   padding: 4px 8px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .allelems header {
+        align-items: flex-start;
+        gap: 24px;
+        padding: 24px;
+    }
+
+    header .header1 h1 {
+        font-size: clamp(30px, 5vw, 42px);
+        margin-bottom: 24px;
+    }
+
+    header .header1 h2,
+    header .header1 h4,
+    header .header2 h4 {
+        font-size: 24px;
+    }
+
+    header .header2 h2 {
+        font-size: 34px;
+    }
+
+    header .header2 h3 {
+        font-size: 18px;
+    }
+
+    .elem {
+        height: 280px;
+    }
+
+    .todo-list-fullpage .todo-container .addtask,
+    .todo-list-fullpage .todo-container .alltask {
+        flex: 1;
+        width: auto;
+    }
+
+    .todo-list-fullpage .todo-container .addtask form,
+    .todo-list-fullpage .todo-container .alltask {
+        padding: 20px;
+    }
+
+    .todo-container .addtask form #task-input,
+    .todo-container .addtask form textarea {
+        font-size: 18px;
+    }
+
+    .task h5 {
+        font-size: 22px;
+    }
+
+    .task button {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    #main {
+        padding-top: 64px;
+    }
+
+    nav {
+        height: 60px;
+        padding: 10px 16px;
+    }
+
+    .nav-in {
+        padding: 8px 12px;
+    }
+
+    .nav-in h2 {
+        font-size: 21px;
+    }
+
+    section.allelems {
+        padding: 20px 16px;
+    }
+
+    .allelems header {
+        flex-direction: column;
+        gap: 18px;
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+
+    header .header1 h1 {
+        font-size: clamp(28px, 8vw, 38px);
+        margin-bottom: 12px;
+    }
+
+    header .header1 h2,
+    header .header1 h4,
+    header .header2 h4 {
+        font-size: 20px;
+    }
+
+    header .header2 h2 {
+        font-size: 30px;
+    }
+
+    header .header2 h4 {
+        margin: 0 0 12px;
+    }
+
+    header .header2 h3 {
+        font-size: 16px;
+    }
+
+    .allelems .allFeatures {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .elem {
+        height: clamp(150px, 48vw, 230px);
+    }
+
+    .elem h2 {
+        font-size: 16px;
+    }
+
+    .fullelem {
+        padding: 76px 16px 24px;
+    }
+
+    .back {
+        top: 16px;
+        right: 16px;
+        min-height: 40px;
+        padding: 8px 14px;
+    }
+
+    .todo-list-fullpage h2,
+    .daily-planner-fullpage h2 {
+        max-width: calc(100% - 84px);
+        font-size: 26px;
+    }
+
+    .todo-list-fullpage .todo-container {
+        height: auto;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .todo-list-fullpage .todo-container .addtask,
+    .todo-list-fullpage .todo-container .alltask {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .todo-list-fullpage .todo-container .addtask {
+        height: auto;
+    }
+
+    .todo-list-fullpage .todo-container .addtask form {
+        padding: 16px;
+    }
+
+    .todo-container .addtask form #task-input,
+    .todo-container .addtask form textarea {
+        font-size: 16px;
+    }
+
+    .todo-list-fullpage .todo-container .alltask {
+        min-height: 220px;
+        max-height: 45vh;
+        padding: 16px;
+    }
+
+    .task {
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .task h5 {
+        font-size: 18px;
+    }
+
+    .daily-planner-fullpage .day-planner {
+        height: auto;
+        padding: 12px;
+    }
+
+    .daily-planner-fullpage .day-planner .day-planner-time {
+        width: 100%;
+    }
+
+    .day-planner .day-planner-time input {
+        font-size: 16px;
+    }
+
+    .motivational-fullpage .motivation-container {
+        width: 100%;
+        height: auto;
+        min-height: 260px;
+    }
+
+    .motivational-fullpage .motivation-container .motivation-wrapper {
+        position: relative;
+        padding: 14px;
+    }
+
+    .motivation-2 {
+        padding: 8px 0;
+        margin-bottom: 18px;
+    }
+
+    .motivation-2 h1 {
+        font-size: 22px;
+    }
+
+    .motivation-3 h2 {
+        max-width: 85%;
+        font-size: 16px;
+    }
+
+    .pomodoro-fullpage {
+        font-size: 18px;
+    }
+
+    .pomodoro-fullpage .session {
+        top: 22%;
+        white-space: nowrap;
+        padding: 12px 16px;
+    }
+
+    .pomodoro-fullpage .pomo-timer {
+        top: 55%;
+    }
+
+    .pomo-timer {
+        font-size: clamp(48px, 16vw, 72px);
+    }
+
+    .pomo-timer button {
+        margin: 6px 3px;
+        padding: 12px 16px;
+        font-size: 16px;
+    }
+
+    .daily-goals-fullpage > h1 {
+        font-size: 28px;
+    }
+
+    .box {
+        margin-top: 20px;
+        padding: 16px;
+    }
+
+    .input-area {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 360px) {
+    .allelems .allFeatures {
+        grid-template-columns: 1fr;
+    }
+
+    .elem {
+        height: 220px;
+    }
 }
